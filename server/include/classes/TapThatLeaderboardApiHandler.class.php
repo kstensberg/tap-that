@@ -9,14 +9,14 @@ class TapThatLeaderboardApiHandler extends ApiHander
 	public function GetResponse($route)
 	{
 		if (array_key_exists('authToken', $_POST)) {
-			session_start($_POST['authToken']);
-		} else {
-			session_start();
+			session_id($_POST['authToken']);
 		}
+		
+		session_start();
 		
 		if (count($_SESSION) <= 0) {
 			return new ErrorJson('access denied', 'no session exists');
-		} else if (!array_key_exists($_SESSION, 'userId')) {
+		} else if (!array_key_exists('userId', $_SESSION)) {
 			return new ErrorJson('access denied', 'user id not found in session');
 		}
 		
@@ -78,15 +78,20 @@ class TapThatLeaderboardApiHandler extends ApiHander
 				ORDER BY rank
 			) AS innerQuery";
 			
-		$result = $mysqli->query($sql);
+		$result = $this->mysql->query($sql);
 		while($row = $result->fetch_assoc()) {
 			$nearRank = new NearRankEntry();
 			$nearRank->rank = $row['rank'];
 			$nearRank->totalTaps = $row['totalTaps'];
 			$nearRank->delta = $this->GetLastDeltaFromUser($row['userId']);
+			$nearRank->name = $this->GetNameForUser($row['userId']);
 			
 			if ($nearRank->delta instanceof JsonError) {
 				return $nearRank->delta;
+			}
+			
+			if ($nearRank->name instanceof JsonError) {
+				return $nearRank->name;
 			}
 			
 			array_push($response->nearRank, $nearRank);
@@ -113,6 +118,26 @@ class TapThatLeaderboardApiHandler extends ApiHander
 		$stmt->reset();
 		
 		return $delta;
+	}
+	
+	private function GetNameForUser($userId)
+	{
+		$sql = "SELECT name FROM users where id = ? LIMIT 1";
+			
+		$stmt = $this->mysql->prepare($sql);
+		
+		if ($stmt === false) {
+			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+		}
+		
+		$stmt->bind_param('i', $userId);
+
+		$stmt->execute();
+		$stmt->bind_result($nameForUser);
+		$stmt->fetch();
+		$stmt->reset();
+		
+		return $nameForUser;
 	}
 	
 	private function AddNewDelta($userId, $delta)
