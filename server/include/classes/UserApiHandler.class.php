@@ -55,6 +55,7 @@ class UserApiHandler extends ApiHander
 			}
 			
 			session_start();
+			$_SESSION['userId'] = $id;
 			
 			$response = new UserAuthJson();
 			$response->authToken = session_id();
