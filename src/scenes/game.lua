@@ -21,10 +21,13 @@ game.onInput = function ( self )
 	if InputMgr:up() then
  
     	local x, y = mainLayer:wndToWorld( InputMgr:getTouch () )
- 		partition = mainLayer:getPartition()
- 		pickedProp = partition:propForPoint(x, y)
-		mainLayer:removeProp(pickedProp)
-		Helper.circleCount = Helper.circleCount - 1
+ 		local partition = mainLayer:getPartition()
+ 		local pickedProp = partition:propForPoint(x, y)
+ 		if pickedProp then
+ 			Helper.PlayNote()
+			mainLayer:removeProp(pickedProp)
+			mainLayer:insertProp(Helper.CreateCircle())	
+		end
 
   	end
 
@@ -39,6 +42,7 @@ game.onLoad = function ( self )
 	layer:setViewport ( viewport )
 	game.layerTable [ 1 ] = { layer }
 	
+	layer:insertProp(Helper.CreateCircle())	
 
 	mainLayer = layer
 
@@ -69,9 +73,6 @@ end
 ----------------------------------------------------------------
 game.onUpdate = function ( self )
 
-	while Helper.circleCount < maxCircles do
-		mainLayer:insertProp(Helper.CreateCircle())	
-	end	
 
 end
 
