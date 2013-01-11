@@ -1,5 +1,4 @@
 <?php
-
 require_once ( __DIR__ . "/base/ApiHandler.class.php");
 require_once ( __DIR__ . "/JsonResponse/TapThatLeaderboardJson.class.php");
 require_once ( __DIR__ . "/JsonResponse/NearRankEntry.class.php");

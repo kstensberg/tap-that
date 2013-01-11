@@ -4,18 +4,19 @@
 
 require_once ( __DIR__ . "/include/classes/UserApiHandler.class.php");
 require_once ( __DIR__ . "/include/classes/TapThatLeaderboardApiHandler.class.php");
+require_once ( __DIR__ . "/include/mysql.inc.php");
 
-header('Content-Type: text/javascript; charset=utf8');
+header('Content-Type: application/json');
 
 $handler = null;
 
 switch (strtoupper($_GET['route']))
 {
 	case 'USER/AUTH':
-		$handler = new UserApiHandler();
+		$handler = new UserApiHandler(new EightBitMysql());
 		break;
 	case 'TAPTHAT/LEADERBOARD':
-		$handler = new TapThatLeaderboardApiHandler();
+		$handler = new TapThatLeaderboardApiHandler(new EightBitMysql());
 		break;
 	default:
 		throw new Exception('unknown route');
