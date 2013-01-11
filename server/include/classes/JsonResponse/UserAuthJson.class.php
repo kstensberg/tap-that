@@ -2,7 +2,8 @@
 
 class UserAuthJson
 {
-	public $uid;
+	public $authToken;
+	public $userId;
 	public $totalTaps;
 }
 
