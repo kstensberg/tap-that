@@ -8,7 +8,7 @@ class TapThatLeaderboardApiHandler extends ApiHander
 {
 	public function GetResponse($route)
 	{
-		if (array_has_key($_POST, 'authToken')) {
+		if (array_key_exists('authToken', $_POST)) {
 			session_start($_POST['authToken']);
 		} else {
 			session_start();
@@ -16,8 +16,16 @@ class TapThatLeaderboardApiHandler extends ApiHander
 		
 		if (count($_SESSION) <= 0) {
 			return new ErrorJson('access denied', 'no session exists');
-		} else if (!array_has_key($_SESSION, 'userId') {
+		} else if (!array_key_exists($_SESSION, 'userId')) {
 			return new ErrorJson('access denied', 'user id not found in session');
+		}
+		
+		if (array_key_exists('delta', $_POST)) {
+			$newDeltaResponse = $this->AddNewDelta($userId, intval($_POST['delta']));
+			
+			if ($newDeltaResponse instanceof JsonError) {
+				return $newDeltaResponse;
+			}
 		}
 		
 		$response = new TapThatLeaderboardJson();
@@ -105,6 +113,22 @@ class TapThatLeaderboardApiHandler extends ApiHander
 		$stmt->reset();
 		
 		return $delta;
+	}
+	
+	private function AddNewDelta($userId, $delta)
+	{
+		$sql = "INSERT INTO `tapthat-deltas` (userId, delta) VALUES (?, ?)";
+			
+		$stmt = $this->mysql->prepare($sql);
+		
+		if ($stmt === false) {
+			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+		}
+		
+		$stmt->bind_param('ii', $userId, $delta);
+
+		$stmt->execute();
+		$stmt->reset();
 	}
 }
 
