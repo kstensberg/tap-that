@@ -1,3 +1,4 @@
 server/include/mysql.inc.php
 .swp
 hosts/android/build
+hosts/android/settings-local.sh

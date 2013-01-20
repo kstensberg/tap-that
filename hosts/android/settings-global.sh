@@ -38,12 +38,22 @@
 	icon_mdpi="res/icon-mdpi.png"
 	icon_hdpi="res/icon-hdpi.png"
 	icon_xhdpi="res/icon-xhdpi.png"
-		
+
+#----------------------------------------------------------------#
+# space-delimited list of source lua directories to add to the 
+# application bundle and corresponding destination directories in 
+# the assets directory of the bundle
+#----------------------------------------------------------------#
+
+        src_dirs=( "../../src/" "../../media")
+        dest_dirs=(     "src" "media")
+
+
 #----------------------------------------------------------------#
 # working directory in the assets directory of the application 
 # bundle and a space-delimited list of lua files thereunder to run 
 # when the application starts
 #----------------------------------------------------------------#
 
-	working_dir="lua"
-	run=( "main.lua" )
+	working_dir=""
+	run=( "src/platforms/mobile.lua" "src/main.lua" )

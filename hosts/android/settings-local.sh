@@ -11,16 +11,7 @@
 # slashes as directory separators, e.g. C:/android-sdk)
 #----------------------------------------------------------------#
 
-	android_sdk_root=""
-
-#----------------------------------------------------------------#
-# space-delimited list of source lua directories to add to the 
-# application bundle and corresponding destination directories in 
-# the assets directory of the bundle
-#----------------------------------------------------------------#
-
-	src_dirs=( "../../src/" )
-	dest_dirs=(	"lua" )
+	android_sdk_root="/usr/local/android-sdk"
 
 #----------------------------------------------------------------#
 # debug & release settings
