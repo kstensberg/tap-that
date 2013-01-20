@@ -10,8 +10,8 @@
 # application and project names
 #----------------------------------------------------------------#
 
-	project_name="untitled"
-	app_name="untitled"
+	project_name="TapThat"
+	app_name="Tap That"
 
 #----------------------------------------------------------------#
 # version numbers
