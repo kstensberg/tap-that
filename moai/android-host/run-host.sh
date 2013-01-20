@@ -24,8 +24,8 @@
 	    shift
 	done
 
-	package=com._8_bitideas.tapthat
-	package_path=src/com/_8_bitideas/tapthat
+	package=com.eight_bitideas.tapthat
+	package_path=src/com/eight_bitideas/tapthat
 	out_dir="`pwd`/build"
 	
 	rm -rf $out_dir
