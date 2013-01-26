@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using LitJson;
+using EightBitIdeas.WebApi.Json;
 
 namespace EightBitIdeas.WebApi
 {

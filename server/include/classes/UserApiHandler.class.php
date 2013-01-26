@@ -59,8 +59,8 @@ class UserApiHandler extends ApiHander
 			
 			$response = new UserAuthJson();
 			$response->authToken = session_id();
-			$response->userId = $id;
-			$response->totalTaps = $totalTaps;
+			$response->userId = intval($id);
+			$response->totalTaps = intval($totalTaps);
 			
 		} else {
 			$response = new ErrorJson('Username or password is incorrect');
