@@ -31,7 +31,7 @@ if ($handler != null) {
 }
 
 if ($response instanceof ErrorJson) {
-	http_response_code(500);
+	header('Error-State: true');
 }
 
 print json_encode($response);

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using EightBitIdeas.WebApi;
 
 public class UIController : MonoBehaviour {
 	
@@ -15,8 +16,16 @@ public class UIController : MonoBehaviour {
 	private int nextRank = 0;
 
 	// Use this for initialization
-	void Start () {
-
+	IEnumerator Start () {
+		WebApi webApi = new WebApi();
+		
+		WWW www = new WWW(WebApi.AuthUrl);
+		yield return www;
+		
+		if (webApi.IsError(www))
+			PushMessage(www.text, 5);
+		
+		//tapCount = 500;
 	}
 	
 	// Update is called once per frame
