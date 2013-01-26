@@ -20,6 +20,8 @@ class TapThatLeaderboardApiHandler extends ApiHander
 			return new ErrorJson('access denied', 'user id not found in session');
 		}
 		
+		$userId = $_SESSION['userId'];
+		
 		if (array_key_exists('delta', $_POST)) {
 			$newDeltaResponse = $this->AddNewDelta($userId, intval($_POST['delta']));
 			
@@ -30,21 +32,26 @@ class TapThatLeaderboardApiHandler extends ApiHander
 		
 		$response = new TapThatLeaderboardJson();
 		
-		$userId = $_SESSION['userId'];
-		
 		$sql = "SELECT
-				totalTaps,
-				rank
-			FROM (
-				SELECT  
-					userId,
-					SUM(delta) AS totalTaps,
-					@curRow := @curRow + 1 AS rank
-				FROM    `tapthat-deltas` AS deltas
-				JOIN    (SELECT @curRow := 0) r
-				GROUP BY userId
-			) AS innerQuery
-			WHERE userId = ?";
+					totalTaps,
+					rank
+				FROM (
+					SELECT
+						totalTaps,
+						@curRow := @curRow + 1 AS rank,
+						userId
+					FROM (
+						SELECT  
+							userId,
+							SUM(delta) AS totalTaps
+						FROM `tapthat-deltas` AS deltas
+						
+						GROUP BY userId
+						ORDER BY totalTaps DESC
+					) AS innerInnerQuery
+					JOIN (SELECT @curRow := 0) r
+				) AS innerQuery
+				WHERE userId = ?";
 		
 		$stmt = $this->mysql->prepare($sql);
 		
@@ -65,24 +72,24 @@ class TapThatLeaderboardApiHandler extends ApiHander
 		
 		$sql = "SELECT
 				totalTaps,
-				rank,
+				@curRow := @curRow + 1 AS rank,
 				userId
 			FROM (
 				SELECT  
 					userId,
-					SUM(delta) AS totalTaps,
-					@curRow := @curRow + 1 AS rank
-				FROM    `tapthat-deltas` AS deltas
-				JOIN    (SELECT @curRow := 0) r
+					SUM(delta) AS totalTaps
+				FROM `tapthat-deltas` AS deltas
+				
 				GROUP BY userId
-				ORDER BY rank
-			) AS innerQuery";
+				ORDER BY totalTaps DESC
+			) AS innerQuery
+			JOIN (SELECT @curRow := 0) r";
 			
 		$result = $this->mysql->query($sql);
 		while($row = $result->fetch_assoc()) {
 			$nearRank = new NearRankEntry();
-			$nearRank->rank = $row['rank'];
-			$nearRank->totalTaps = $row['totalTaps'];
+			$nearRank->rank = intval($row['rank']);
+			$nearRank->totalTaps = intval($row['totalTaps']);
 			$nearRank->delta = $this->GetLastDeltaFromUser($row['userId']);
 			$nearRank->name = $this->GetNameForUser($row['userId']);
 			
@@ -93,6 +100,8 @@ class TapThatLeaderboardApiHandler extends ApiHander
 			if ($nearRank->name instanceof JsonError) {
 				return $nearRank->name;
 			}
+			
+			$nearRank->delta = intval($nearRank->delta);
 			
 			array_push($response->nearRank, $nearRank);
 		}
@@ -142,6 +151,9 @@ class TapThatLeaderboardApiHandler extends ApiHander
 	
 	private function AddNewDelta($userId, $delta)
 	{
+		if ($delta <= 0)
+			return;
+		
 		$sql = "INSERT INTO `tapthat-deltas` (userId, delta) VALUES (?, ?)";
 			
 		$stmt = $this->mysql->prepare($sql);

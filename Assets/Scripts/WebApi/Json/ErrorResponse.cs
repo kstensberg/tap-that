@@ -1,6 +1,6 @@
 using System;
 
-namespace EightBitIdeas.WebApi
+namespace EightBitIdeas.WebApi.Json
 {
 	public struct ErrorResponse
 	{

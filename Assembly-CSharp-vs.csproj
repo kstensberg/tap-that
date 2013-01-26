@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\TouchController.cs" />
      <Compile Include="Assets\Scripts\UIController.cs" />
      <Compile Include="Assets\Scripts\WebApi\Json\ErrorResponse.cs" />
+     <Compile Include="Assets\Scripts\WebApi\Json\LeaderboardResponse.cs" />
      <Compile Include="Assets\Scripts\WebApi\Json\LoginResponse.cs" />
      <Compile Include="Assets\Scripts\WebApi\WebApi.cs" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />

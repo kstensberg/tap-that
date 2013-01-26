@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using EightBitIdeas.WebApi;
+using EightBitIdeas.WebApi.Json;
 using System;
+using LitJson;
 
 public class UIController : MonoBehaviour {
 	
@@ -11,11 +13,9 @@ public class UIController : MonoBehaviour {
 	public UILabel previousRankLabel;
 	public UILabel nextRankLabel;
 	
-	private float leaderboardDelay = 30.0f;
+	private float leaderboardDelay = 10.0f;
 	private float messageDelay = 5.0f;
 	private int tapCount = 0;
-	private int previousRank = 0;
-	private int nextRank = 0;
 	private int tapDelta = 0;
 	
 	private WebApi webApi;
@@ -49,8 +49,6 @@ public class UIController : MonoBehaviour {
 	void Update () {
 		//Update labels with correct values
 		tapCountLabel.text = tapCount.ToString();
-		previousRankLabel.text = previousRank.ToString();
-		nextRankLabel.text = nextRank.ToString();
 		
 		if (Input.GetKeyUp("m")){
 			PushMessage("Hey Patrick! This is a message, dude.", 5);	
@@ -71,14 +69,6 @@ public class UIController : MonoBehaviour {
 		tapDelta += number;
 	}
 	
-	public void SetPreviousRank (int number){
-		previousRank = number;	
-	}
-	
-	public void SetNextRank (int number){
-		nextRank = number;	
-	}
-	
 	
 	private IEnumerator HideMessage(){
 		yield return new WaitForSeconds(messageDelay);	
@@ -91,8 +81,8 @@ public class UIController : MonoBehaviour {
 		
 		WWWForm form = new WWWForm();
 		form.AddField("authToken", loginResponse.Value.authToken);
-		form.AddField("delta", tapDelta);
 		Debug.Log("sending delta " + tapDelta);
+		form.AddField("delta", tapDelta);
 		tapDelta = 0;
 		
 		WWW www = new WWW(url, form);
@@ -108,6 +98,48 @@ public class UIController : MonoBehaviour {
 		else
 		{
 			Debug.Log(www.text);
+			
+			LeaderboardResponse leaderboardResponse = JsonMapper.ToObject<LeaderboardResponse>(www.text);
+			
+			NearRankLeaderboardEntry nextRank = null;
+			NearRankLeaderboardEntry previousRank = null;
+			foreach (NearRankLeaderboardEntry nearRank in leaderboardResponse.nearRank)
+			{
+				if (nextRank != null && previousRank != null)
+					break;
+				
+				if (nearRank.rank == leaderboardResponse.rank-1)
+				{
+					nextRank = nearRank;
+					continue;
+				}
+				else if (nearRank.rank == leaderboardResponse.rank+1)
+				{
+					previousRank = nearRank;
+					continue;
+				}
+			}
+			
+			if (nextRank == null)
+			{
+				nextRankLabel.enabled = false;
+			}
+			else
+			{
+				nextRankLabel.enabled = true;
+				nextRankLabel.text = nextRank.name + ": " + nextRank.totalTaps;
+			}
+			
+			if (previousRank == null)
+			{
+				previousRankLabel.enabled = false;
+			}
+			else
+			{
+				previousRankLabel.enabled = true;
+				previousRankLabel.text = previousRank.name + ": " + previousRank.totalTaps;
+			}
+			
 		}
 		
 		yield return new WaitForSeconds(leaderboardDelay);
