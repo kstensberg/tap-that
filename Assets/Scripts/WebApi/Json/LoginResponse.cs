@@ -4,8 +4,9 @@ namespace EightBitIdeas.WebApi
 {
 	public struct LoginResponse
 	{
-		public string uuid;
-		public long totalTaps;
+		public string authToken;
+		public int userId;
+		public int totalTaps;
 	}
 }
 

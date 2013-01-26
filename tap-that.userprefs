@@ -2,14 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UIController.cs">
     <Files>
-      <File FileName="Assets\Scripts\UIController.cs" Line="18" Column="32" />
-      <File FileName="Assets\Scripts\WebApi\WebApi.cs" Line="15" Column="57" />
+      <File FileName="Assets\Scripts\UIController.cs" Line="83" Column="36" />
+      <File FileName="Assets\Scripts\WebApi\Json\LoginResponse.cs" Line="8" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\src\tap-that\Assets\Scripts\UIController.cs" line="25" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
