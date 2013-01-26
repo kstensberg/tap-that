@@ -4,6 +4,8 @@
 
 require_once ( __DIR__ . "/include/classes/UserApiHandler.class.php");
 require_once ( __DIR__ . "/include/classes/TapThatLeaderboardApiHandler.class.php");
+require_once ( __DIR__ . "/include/classes/JsonResponse/ErrorJson.class.php");
+
 require_once ( __DIR__ . "/include/mysql.inc.php");
 
 header('Content-Type: application/json');
@@ -26,6 +28,10 @@ if ($handler != null) {
 	$response = $handler->GetResponse($_GET['route']);
 } else {
 	$response = null;
+}
+
+if ($response instanceof ErrorJson) {
+	http_response_code(500);
 }
 
 print json_encode($response);
