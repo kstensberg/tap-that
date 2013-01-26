@@ -2,19 +2,45 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using LitJson;
 
 namespace EightBitIdeas.WebApi
 {
 	public class WebApi
 	{
-		public static readonly string AuthUrl = "http://8-bitideas.com/api/user/auth";
+		public static readonly string ApiRootUrl = "http://8-bitideas.com/api/";
 		
-		public bool IsError(WWW www)
+		public static string AuthUrl
 		{
-			if (www.responseHeaders.ContainsKey("ERROR-STATE"))
-				return StringToBool(www.responseHeaders["ERROR-STATE"]);
+			get
+			{
+				return ApiRootUrl + "user/auth";
+			}
+		}
+		
+		public ErrorResponse? GetError(WWW www)
+		{
+			if (!IsError(www))
+				return null;
+			else
+				return JsonMapper.ToObject<ErrorResponse>(www.text);
+		}
+		
+		public LoginResponse? GetResponse(WWW www)
+		{
+			if (IsError(www))
+				return null;
+			else
+				return JsonMapper.ToObject<LoginResponse>(www.text);
+		}
+		
+		public WWW GetAuthWWW(string username, string password)
+		{
+			WWWForm form = new WWWForm();
+			form.AddField("username", username);
+			form.AddField("password", password);
 			
-			return false;
+			return new WWW(AuthUrl, form);
 		}
 		
 		public int GetStatusCode(WWW www)
@@ -28,7 +54,15 @@ namespace EightBitIdeas.WebApi
 			else
 				return Convert.ToInt32(statusSplit[1]);
 		}
+		
+		private bool IsError(WWW www)
+		{
+			if (www.responseHeaders.ContainsKey("ERROR-STATE"))
+				return StringToBool(www.responseHeaders["ERROR-STATE"]);
 			
+			return false;
+		}
+		
 		private bool StringToBool(string toParse)
 		{
 			switch(toParse.ToUpper())
