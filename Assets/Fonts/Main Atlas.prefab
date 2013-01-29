@@ -73,6 +73,23 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: circle
+    outer:
+      serializedVersion: 2
+      x: 257
+      y: 524
+      width: 227
+      height: 225
+    inner:
+      serializedVersion: 2
+      x: 257
+      y: 524
+      width: 227
+      height: 225
+    paddingLeft: .0660792962
+    paddingRight: .06167401
+    paddingTop: .0711111128
+    paddingBottom: .0666666701
   mCoordinates: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
