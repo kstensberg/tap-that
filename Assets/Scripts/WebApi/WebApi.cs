@@ -19,20 +19,20 @@ namespace EightBitIdeas.WebApi
 			}
 		}
 		
-		public ErrorResponse? GetError(WWW www)
+		public ErrorResponse GetError(WWW www)
 		{
 			if (!IsError(www))
 				return null;
 			else
-				return JsonMapper.ToObject<ErrorResponse>(www.text);
+				return new ErrorResponse(JsonMapper.ToObject(www.text));
 		}
 		
-		public LoginResponse? GetResponse(WWW www)
+		public LoginResponse GetResponse(WWW www)
 		{
 			if (IsError(www))
 				return null;
 			else
-				return JsonMapper.ToObject<LoginResponse>(www.text);
+				return new LoginResponse(JsonMapper.ToObject(www.text));
 		}
 		
 		public WWW GetAuthWWW(string username, string password)

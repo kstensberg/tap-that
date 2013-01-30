@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour {
 	private int tapDelta = 0;
 	
 	private WebApi webApi;
-	private LoginResponse? loginResponse;
+	private LoginResponse loginResponse;
 	
 	// Use this for initialization
 	IEnumerator Start () {
@@ -28,18 +28,18 @@ public class UIController : MonoBehaviour {
 		WWW www = webApi.GetAuthWWW("asdf", "asdf");
 		yield return www;
 		
-		ErrorResponse? error = webApi.GetError(www);
+		ErrorResponse error = webApi.GetError(www);
 		
-		if (error.HasValue)
-			PushMessage(error.Value.displayError, 5);
+		if (error != null)
+			PushMessage(error.displayError, 5);
 		else
 			loginResponse = webApi.GetResponse(www);
 		
-		if (loginResponse.HasValue)
+		if (loginResponse != null)
 		{
-			string msg = string.Format("Welcome back {0}, {1} bubble taps from before added", "asdf", loginResponse.Value.totalTaps);
+			string msg = string.Format("Welcome back {0}, {1} bubble taps from before added", "asdf", loginResponse.totalTaps);
 			PushMessage(msg , 5);
-			tapCount = loginResponse.Value.totalTaps;
+			tapCount = loginResponse.totalTaps;
 			
 			StartCoroutine("UpdateLeaderboards");
 		}
@@ -80,7 +80,7 @@ public class UIController : MonoBehaviour {
 		string url = WebApi.ApiRootUrl + "TapThat/Leaderboard";
 		
 		WWWForm form = new WWWForm();
-		form.AddField("authToken", loginResponse.Value.authToken);
+		form.AddField("authToken", loginResponse.authToken);
 		Debug.Log("sending delta " + tapDelta);
 		form.AddField("delta", tapDelta);
 		tapDelta = 0;
@@ -89,17 +89,17 @@ public class UIController : MonoBehaviour {
 		
 		yield return www;
 		
-		ErrorResponse? error = webApi.GetError(www);
+		ErrorResponse error = webApi.GetError(www);
 		
-		if (error.HasValue)
+		if (error != null)
 		{
-			PushMessage(error.Value.displayError, 5);
+			PushMessage(error.displayError, 5);
 		}
 		else
 		{
 			Debug.Log(www.text);
 			
-			LeaderboardResponse leaderboardResponse = JsonMapper.ToObject<LeaderboardResponse>(www.text);
+			LeaderboardResponse leaderboardResponse = new LeaderboardResponse(JsonMapper.ToObject(www.text));
 			
 			NearRankLeaderboardEntry nextRank = null;
 			NearRankLeaderboardEntry previousRank = null;
