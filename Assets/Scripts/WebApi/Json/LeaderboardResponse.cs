@@ -16,9 +16,9 @@ namespace EightBitIdeas.WebApi.Json
 			this.totalTaps = (int)json["totalTaps"];
 			this.nearRank = new List<NearRankLeaderboardEntry>();
 			
-			foreach (JsonData nearRank in json["nearRank"])
+			for (int c = 0; c < json["nearRank"].Count; c++)
 			{
-				this.nearRank.Add(new NearRankLeaderboardEntry(nearRank));
+				this.nearRank.Add(new NearRankLeaderboardEntry(json["nearRank"][c]));
 			}
 		}
 	}
