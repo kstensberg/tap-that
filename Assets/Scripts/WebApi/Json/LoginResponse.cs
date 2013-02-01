@@ -7,13 +7,13 @@ namespace EightBitIdeas.WebApi.Json
 	{
 		public string authToken;
 		public int userId;
-		public int totalTaps;
+		public string name;
 		
 		public LoginResponse(JsonData json)
 		{
 			this.authToken = (string)json["authToken"];
 			this.userId = (int)json["userId"];
-			this.totalTaps = (int)json["totalTaps"];
+			this.name = (string)json["name"];
 		}
 	}
 }
