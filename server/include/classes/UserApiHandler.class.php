@@ -44,35 +44,12 @@ class UserApiHandler extends ApiHander
 		$stmt->reset();
 
 		if ($this->GetHasher()->CheckPassword($password, $stored_hash)) {
-			
-			$totalTaps = 0;
-			
-			$sql = "SELECT SUM(delta) FROM `tapthat-deltas` WHERE userId=?";
-			$stmt = $this->mysql->prepare($sql);
-			
-			if ($stmt === false) {
-				return new ErrorJson('Username or password is incorrect', 'error preparing sql');
-			}
-			
-			$stmt->bind_param('i', $id);
-
-			$stmt->execute();
-			$stmt->bind_result($taps);
-			$stmt->fetch();
-			$stmt->reset();
-			
-			if ($taps != null) {
-				$totalTaps = $taps;
-			}
-			
 			session_start();
 			$_SESSION['userId'] = $id;
 			
 			$response = new UserAuthJson();
 			$response->authToken = session_id();
 			$response->userId = intval($id);
-			$response->totalTaps = intval($totalTaps);
-			
 		} else {
 			$response = new ErrorJson('Username or password is incorrect');
 		}
