@@ -37,10 +37,33 @@ public class UIController : MonoBehaviour {
 		
 		if (loginResponse != null)
 		{
-			string msg = string.Format("Welcome back {0}, {1} bubble taps from before added", "asdf", loginResponse.totalTaps);
-			PushMessage(msg , 5);
-			tapCount = loginResponse.totalTaps;
 			
+			
+			string url = WebApi.ApiRootUrl + "TapThat/Leaderboard";
+		
+			WWWForm form = new WWWForm();
+			form.AddField("authToken", loginResponse.authToken);
+			
+			WWW leaderWww = new WWW(url, form);
+			
+			yield return leaderWww;
+			
+			error = webApi.GetError(leaderWww);
+			
+			if (error != null)
+			{
+				PushMessage(error.displayError, 5);
+			}
+			else
+			{
+				LeaderboardResponse leaderboardResponse = new LeaderboardResponse(JsonMapper.ToObject(leaderWww.text));
+				int totalTaps = leaderboardResponse.totalTaps;
+				
+				string msg = string.Format("Welcome back {0}, {1} bubble taps from before added",loginResponse.name, totalTaps);
+				
+				PushMessage(msg, 5);
+				tapCount = totalTaps;
+			}
 			StartCoroutine("UpdateLeaderboards");
 		}
 	}

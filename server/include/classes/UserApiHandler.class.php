@@ -29,7 +29,7 @@ class UserApiHandler extends ApiHander
 
 		$stored_hash = "*";
 
-		$sql = "SELECT password, id FROM users WHERE username=? LIMIT 1;";
+		$sql = "SELECT password, id, name FROM users WHERE username=? LIMIT 1;";
 		$stmt = $this->mysql->prepare($sql);
 		
 		if ($stmt === false) {
@@ -39,7 +39,7 @@ class UserApiHandler extends ApiHander
 		$stmt->bind_param('s', $username);
 
 		$stmt->execute();
-		$stmt->bind_result($stored_hash, $id);
+		$stmt->bind_result($stored_hash, $id, $name);
 		$stmt->fetch();
 		$stmt->reset();
 
@@ -50,6 +50,7 @@ class UserApiHandler extends ApiHander
 			$response = new UserAuthJson();
 			$response->authToken = session_id();
 			$response->userId = intval($id);
+			$response->name = $name;
 		} else {
 			$response = new ErrorJson('Username or password is incorrect');
 		}
