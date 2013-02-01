@@ -11,34 +11,6 @@ require_once ( __DIR__ . "/include/mysql.inc.php");
 
 header('Content-Type: application/json');
 
-/*
-$handler = null;
-
-switch (strtoupper($_GET['route']))
-{
-	case 'USER/AUTH':
-		$handler = new UserApiHandler(new EightBitMysql());
-		break;
-	case 'TAPTHAT/LEADERBOARD':
-		$handler = new TapThatLeaderboardApiHandler(new EightBitMysql());
-		break;
-	default:
-		throw new Exception('unknown route');
-}
-
-if ($handler != null) {
-	$response = $handler->GetResponse($_GET['route']);
-} else {
-	$response = null;
-}
-
-if ($response instanceof ErrorJson) {
-	header('Error-State: true');
-}
-
-print json_encode($response);
-*/
-
 $mediator = new ApiMediator();
 $mysql = new EightBitMysql();
 
@@ -55,12 +27,5 @@ if ($response instanceof ErrorJson) {
 }
 
 print json_encode($response);
-
-/*
-$mediator->AttachRoute('load', function() { echo "Loading"; });
-$mediator->AttachRoute('stop', function() { echo "Stopping"; });
-$mediator->GetResponse('load'); // prints "Loading"
-$mediator->GetResponse('stop'); // prints "StoppingStopped"
-*/
 
 ?>

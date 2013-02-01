@@ -17,14 +17,11 @@ class UserApiHandler extends ApiHander
 	public function GetAuthResponse()
 	{
 		if (!array_key_exists('username', $_POST) || !array_key_exists('password', $_POST)) {
-			//return new ErrorJson('Username or password is incorrect', 'Username or password not given in the post');
-			$username = 'asdf';
-			$password = 'asdf';
-		} else {
+			return new ErrorJson('Username or password is incorrect', 'Username or password not given in the post');
+		}
 		
 		$username = $_POST["username"];
 		$password = $_POST["password"];
-		}
 		
 		if (strlen($password) > 72 && strlen($username) > 72) { 
 			return new ErrorJson('Username or password is incorrect', 'username or password is over the max length');
