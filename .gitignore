@@ -1,5 +1,6 @@
 # Unity3D .gitignore file.
 #     Store this file at the root of your local repository.
+server/include/mysql.inc.php
 .DS_Store
 Library/AssetImportState
 Library/AssetServerCacheV3

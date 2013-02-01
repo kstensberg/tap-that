@@ -1,5 +1,7 @@
 <?php
 
+require_once ( __DIR__ . "/../ApiMediator.class.php");
+
 abstract class ApiHander
 {
 	protected $mysql;
@@ -9,7 +11,7 @@ abstract class ApiHander
 		$this->mysql = $mysql;
 	}
 	
-	public abstract function GetResponse($route);
+	public abstract function Init(ApiMediator $apiMediator);
 }
 
 ?>

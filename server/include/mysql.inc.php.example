@@ -1,3 +1,11 @@
 <?php
-$mysql = new mysqli('localhost', 'my_user', 'my_password', 'my_db');
+
+class EightBitMysql extends mysqli
+{
+        function EightBitMysql()
+        {
+                parent::__construct('hostname', 'username', 'password', 'database');
+        }
+}
+
 ?>

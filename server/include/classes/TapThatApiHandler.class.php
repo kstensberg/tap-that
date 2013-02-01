@@ -4,9 +4,14 @@ require_once ( __DIR__ . "/JsonResponse/TapThatLeaderboardJson.class.php");
 require_once ( __DIR__ . "/JsonResponse/NearRankEntry.class.php");
 require_once ( __DIR__ . "/JsonResponse/ErrorJson.class.php");
 
-class TapThatLeaderboardApiHandler extends ApiHander
+class TapThatApiHandler extends ApiHander
 {
-	public function GetResponse($route)
+	public function Init(ApiMediator $mediator)
+	{
+		$mediator->AttachRoute('tapthat/leaderboard', $this, 'GetLeaderboardResponse');
+	}
+	
+	public function GetLeaderboardResponse()
 	{
 		if (array_key_exists('authToken', $_POST)) {
 			session_id($_POST['authToken']);
