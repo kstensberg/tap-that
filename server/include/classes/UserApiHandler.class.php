@@ -80,7 +80,47 @@ class UserApiHandler extends ApiHander
 		return $response;
 	}
 	
-	public static function GetHasher()
+	public function GetCreateResponse()
+	{
+		if (!array_key_exists('username', $_POST)) {
+			return new ErrorJson("post variable 'username' was not provided");
+		}
+		
+		if (!array_key_exists('password', $_POST)) {
+			return new ErrorJson("post variable 'password' was not provided");
+		}
+		
+		if (!array_key_exists('name', $_POST)) {
+			return new ErrorJson("post variable 'name' was not provided");
+		}
+		
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$name = $_POST['name'];
+		
+		$sql = "INSERT INTO `users` (username, password, name) VALUES (?, ?, ?)";
+			
+		$stmt = $this->mysql->prepare($sql);
+		
+		if ($stmt === false) {
+			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+		}
+		
+		$passwordHash = $this->GetHasher()->HashPassword($password);
+		
+		$stmt->bind_param('sss', $username, $passwordHash, $name);
+
+		if ($stmt->execute() == false) {
+			return new ErrorJson('internal error, please try again later', 'error executing sql');
+		}
+		
+		$stmt->reset();
+		
+		return "success";
+		
+	}
+	
+	private static function GetHasher()
 	{
 		return new PasswordHash(8, false);
 	}
