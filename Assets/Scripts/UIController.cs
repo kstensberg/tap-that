@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour {
 	IEnumerator Start () {
 		webApi = new WebApi();
 		
-		WWW www = webApi.GetAuthWWW("asdf", "asdf");
+		WWW www = webApi.GetAuthWWW(PlayerPrefs.GetString("Username"), PlayerPrefs.GetString("Password"));
 		yield return www;
 		
 		ErrorResponse error = webApi.GetError(www);
@@ -72,10 +72,7 @@ public class UIController : MonoBehaviour {
 	void Update () {
 		//Update labels with correct values
 		tapCountLabel.text = tapCount.ToString();
-		
-		if (Input.GetKeyUp("m")){
-			PushMessage("Hey Patrick! This is a message, dude.", 5);	
-		}
+	
 	
 	}
 	
