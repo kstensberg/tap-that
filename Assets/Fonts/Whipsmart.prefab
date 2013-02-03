@@ -40,17 +40,17 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: cac23f962a19b4e42a830437f676590a, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: -.00390625
-    y: -.23046875
-    width: 1
-    height: .5
+    x: -.001953125
+    y: -1.4609375
+    width: .5
+    height: 1
   mFont:
     mGlyphs: []
     mSize: 73
     mBase: 54
     mWidth: 512
     mHeight: 512
-    mSpriteName: Whipsmart
+    mSpriteName: 
     mSaved:
     - index: 106
       x: 2
