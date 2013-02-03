@@ -39,57 +39,40 @@ MonoBehaviour:
   m_Name: 
   material: {fileID: 2100000, guid: cac23f962a19b4e42a830437f676590a, type: 2}
   sprites:
-  - name: Whipsmart
-    outer:
-      serializedVersion: 2
-      x: 0
-      y: 750
-      width: 504
-      height: 274
-    inner:
-      serializedVersion: 2
-      x: 0
-      y: 750
-      width: 504
-      height: 274
-    paddingLeft: .0039682542
-    paddingRight: .0119047621
-    paddingTop: .00729927002
-    paddingBottom: .861313879
   - name: white
     outer:
       serializedVersion: 2
       x: 0
-      y: 493
+      y: 90
       width: 256
       height: 256
     inner:
       serializedVersion: 2
       x: 0
-      y: 493
+      y: 90
       width: 256
       height: 256
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: circle
+  - name: Acknowledge
     outer:
       serializedVersion: 2
-      x: 257
-      y: 524
-      width: 227
-      height: 225
+      x: 0
+      y: 347
+      width: 507
+      height: 165
     inner:
       serializedVersion: 2
-      x: 257
-      y: 524
-      width: 227
-      height: 225
-    paddingLeft: .0660792962
-    paddingRight: .06167401
-    paddingTop: .0711111128
-    paddingBottom: .0666666701
+      x: 0
+      y: 347
+      width: 507
+      height: 165
+    paddingLeft: .00394477323
+    paddingRight: .00591715984
+    paddingTop: .0121212117
+    paddingBottom: .539393961
   mCoordinates: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
