@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour {
 	IEnumerator Start () {
 		webApi = new WebApi();
 		
-		WWW www = webApi.GetAuthWWW(PlayerPrefs.GetString("Username"), PlayerPrefs.GetString("Password"));
+		WWW www = webApi.GetAuthWWW(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
 		yield return www;
 		
 		ErrorResponse error = webApi.GetError(www);
