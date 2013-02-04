@@ -123,7 +123,7 @@ public class UIController : MonoBehaviour {
 			
 			NearRankLeaderboardEntry nextRank = null;
 			NearRankLeaderboardEntry previousRank = null;
-			foreach (NearRankLeaderboardEntry nearRank in leaderboardResponse.nearRank)
+			foreach (NearRankLeaderboardEntry nearRank in leaderboardResponse.leaderboard)
 			{
 				if (nextRank != null && previousRank != null)
 					break;

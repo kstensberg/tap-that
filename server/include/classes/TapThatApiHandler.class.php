@@ -73,7 +73,7 @@ class TapThatApiHandler extends ApiHander
 		
 		$response->rank = intval($currentUserRank);
 		$response->totalTaps = intval($currentUsuerTotalTaps);
-		$response->nearRank = array();
+		$response->leaderboard = array();
 		
 		$sql = "SELECT
 				totalTaps,
@@ -92,23 +92,23 @@ class TapThatApiHandler extends ApiHander
 			
 		$result = $this->mysql->query($sql);
 		while($row = $result->fetch_assoc()) {
-			$nearRank = new NearRankEntry();
-			$nearRank->rank = intval($row['rank']);
-			$nearRank->totalTaps = intval($row['totalTaps']);
-			$nearRank->delta = $this->GetLastDeltaFromUser($row['userId']);
-			$nearRank->name = $this->GetNameForUser($row['userId']);
+			$leaderboard = new NearRankEntry();
+			$leaderboard->rank = intval($row['rank']);
+			$leaderboard->totalTaps = intval($row['totalTaps']);
+			$leaderboard->delta = $this->GetLastDeltaFromUser($row['userId']);
+			$leaderboard->name = $this->GetNameForUser($row['userId']);
 			
-			if ($nearRank->delta instanceof JsonError) {
-				return $nearRank->delta;
+			if ($leaderboard->delta instanceof JsonError) {
+				return $leaderboard->delta;
 			}
 			
-			if ($nearRank->name instanceof JsonError) {
-				return $nearRank->name;
+			if ($leaderboard->name instanceof JsonError) {
+				return $leaderboard->name;
 			}
 			
-			$nearRank->delta = intval($nearRank->delta);
+			$leaderboard->delta = intval($leaderboard->delta);
 			
-			array_push($response->nearRank, $nearRank);
+			array_push($response->leaderboard, $leaderboard);
 		}
 		
 		return $response;
