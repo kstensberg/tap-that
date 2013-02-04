@@ -5,13 +5,16 @@ namespace EightBitIdeas.WebApi.Json
 {
 	public class ErrorResponse
 	{
-		public string msg;
-		public string displayError;
+		public string msg = null;
+		public string displayError = null;
 		
 		public ErrorResponse(JsonData json)
 		{
-			this.msg = (string)json["msg"];
-			this.displayError = (string)json["displayError"];
+			if (json["msg"] != null)
+				this.msg = (string)json["msg"];
+			
+			if (json["displayError"] != null)
+				this.displayError = (string)json["displayError"];
 		}
 	}
 }
