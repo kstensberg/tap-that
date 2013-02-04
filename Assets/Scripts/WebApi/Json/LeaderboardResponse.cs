@@ -8,17 +8,17 @@ namespace EightBitIdeas.WebApi.Json
 	{
 		public int rank;
 		public int totalTaps;
-		public List<NearRankLeaderboardEntry> nearRank;
+		public List<NearRankLeaderboardEntry> leaderboard;
 		
 		public LeaderboardResponse(JsonData json)
 		{
 			this.rank = (int)json["rank"];
 			this.totalTaps = (int)json["totalTaps"];
-			this.nearRank = new List<NearRankLeaderboardEntry>();
+			this.leaderboard = new List<NearRankLeaderboardEntry>();
 			
-			for (int c = 0; c < json["nearRank"].Count; c++)
+			for (int c = 0; c < json["leaderboard"].Count; c++)
 			{
-				this.nearRank.Add(new NearRankLeaderboardEntry(json["nearRank"][c]));
+				this.leaderboard.Add(new NearRankLeaderboardEntry(json["leaderboard"][c]));
 			}
 		}
 	}
