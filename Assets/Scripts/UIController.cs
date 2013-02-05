@@ -33,13 +33,13 @@ public class UIController : MonoBehaviour {
 		if (error != null)
 			PushMessage(error.displayError, 5);
 		else
-			loginResponse = webApi.GetResponse(www);
+			loginResponse = webApi.GetLoginResponse(www);
 		
 		if (loginResponse != null)
 		{
 			
 			
-			string url = WebApi.ApiRootUrl + "TapThat/Leaderboard";
+			string url = WebApi.ApiRootUrl + "TapThat/taps";
 		
 			WWWForm form = new WWWForm();
 			form.AddField("authToken", loginResponse.authToken);
@@ -56,15 +56,15 @@ public class UIController : MonoBehaviour {
 			}
 			else
 			{
-				LeaderboardResponse leaderboardResponse = new LeaderboardResponse(JsonMapper.ToObject(leaderWww.text));
+				TapsResponse leaderboardResponse = new TapsResponse(JsonMapper.ToObject(leaderWww.text));
 				int totalTaps = leaderboardResponse.totalTaps;
 				
-				string msg = string.Format("Welcome back {0}, {1} bubble taps from before added",loginResponse.name, totalTaps);
+				string msg = string.Format("Welcome back {0}, {1} bubble taps from before added", loginResponse.name, totalTaps);
 				
 				PushMessage(msg, 5);
 				tapCount = totalTaps;
 			}
-			StartCoroutine("UpdateLeaderboards");
+			StartCoroutine("UpdateTaps");
 		}
 	}
 	
@@ -96,8 +96,8 @@ public class UIController : MonoBehaviour {
 		iTween.MoveTo(messageBox, iTween.Hash("position", new Vector3(p.x, -280, p.z), "time", 1, "isLocal", true));
 	}
 	
-	private IEnumerator UpdateLeaderboards() {
-		string url = WebApi.ApiRootUrl + "TapThat/Leaderboard";
+	private IEnumerator UpdateTaps() {
+		string url = WebApi.ApiRootUrl + "TapThat/taps";
 		
 		WWWForm form = new WWWForm();
 		form.AddField("authToken", loginResponse.authToken);
@@ -119,11 +119,11 @@ public class UIController : MonoBehaviour {
 		{
 			Debug.Log(www.text);
 			
-			LeaderboardResponse leaderboardResponse = new LeaderboardResponse(JsonMapper.ToObject(www.text));
+			TapsResponse leaderboardResponse = new TapsResponse(JsonMapper.ToObject(www.text));
 			
-			NearRankLeaderboardEntry nextRank = null;
-			NearRankLeaderboardEntry previousRank = null;
-			foreach (NearRankLeaderboardEntry nearRank in leaderboardResponse.leaderboard)
+			LeaderboardResponse nextRank = null;
+			LeaderboardResponse previousRank = null;
+			foreach (LeaderboardResponse nearRank in leaderboardResponse.leaderboard)
 			{
 				if (nextRank != null && previousRank != null)
 					break;
@@ -163,6 +163,6 @@ public class UIController : MonoBehaviour {
 		}
 		
 		yield return new WaitForSeconds(leaderboardDelay);
-		StartCoroutine("UpdateLeaderboards");
+		StartCoroutine("UpdateTaps");
 	}
 }

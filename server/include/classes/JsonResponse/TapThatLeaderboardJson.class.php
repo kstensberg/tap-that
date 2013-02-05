@@ -3,8 +3,9 @@
 class TapThatLeaderboardJson
 {
 	public $rank;
+	public $name;
 	public $totalTaps;
-	public $leaderboard;
+	public $delta;
 }
 
 ?>

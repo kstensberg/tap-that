@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_IOS;UNITY_IPHONE;ENABLE_GENERICS;ENABLE_TERRAIN;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_DUCK_TYPING</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_WEBPLAYER;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -53,53 +53,105 @@
      <Compile Include="Assets\Standard Assets\Editor\Image Effects\TiltShiftEditor.js" />
      <Compile Include="Assets\Standard Assets\Editor\Image Effects\TonemappingEditor.js" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Pencil.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV1.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\StereoAnaglyph-AmberBlue.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\ThermalVisionV2.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SecurityCamera.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\BlackAndWhite.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV6.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Negative.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Dream_Color.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SunShaftsComposite.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\Readme.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurves.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Noise.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\LightWave.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Pixelated.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\RadialBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\VignetteShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelEdge.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\ToneMap.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Spherical.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\EdgeDetect.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Displacement.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\MotionBlur.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (AlphaClip) .shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV4.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV7.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowCompose.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\LineArt.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\LightShafts.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\MinMaxReduction.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\RadialBlur.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Scanlines.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ContrastComposite.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\BlurV.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\ThermalVision.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\LensCircle.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Vignette.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Pulse.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\BlurH.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\StereoAnaglyph-GreenMagenta.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\FoggyScreen.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (AlphaClip).shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Amnesia.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\TilesXY.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Bleach.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Scratch.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Charcoal.shader" />
      <None Include="Assets\Fonts\Acknowledge.txt" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Tiles.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfField34.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV3.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\TiltShift.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Ripple.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SSAOShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ConvertDepth.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\HDR.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionCurvesSimple.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\4Bit.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Frost.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\FakeSSAO.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CreaseApply.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ChromaticAberrationShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Holywood.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (HardClip).shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored Overlay.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV2.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Thicken.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Desaturate.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Godrays1.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlurEffectConeTaps.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\DLAA.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed).shader" />
      <None Include="Assets\Fonts\Whipsmart.txt" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Wiggle.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Emboss.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Raindrops.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionEffect.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GrayscaleEffect.shader" />
@@ -107,28 +159,37 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\ScreenWaves.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\NightVision.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrain.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (HardClip).shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Additive Colored.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\BloomSimple.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA2.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SobelOutlineV5.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectNormals.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\NightVisionV2.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\PrepareSunShaftsBlur.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\Blend.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\BlendModesOverlay.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\SimpleClear.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Dream_Grey.shader" />
      <None Include="Assets\Plugins\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\SinCity.shader" />
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\CrossHatch.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAA3Console.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
- <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
+     <None Include="Assets\Aubergines PostProcess Effects\PostProcessShaders\_Shaders\Posterize.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
- <Reference Include="Assets\3rdparty\LitJson">
+ <Reference Include="LitJson">
  <HintPath>Assets\3rdparty\LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
