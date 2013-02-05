@@ -4,6 +4,7 @@ using EightBitIdeas.WebApi;
 using EightBitIdeas.WebApi.Json;
 using System;
 using LitJson;
+using System.Collections.Generic;
 
 
 public class MenuController : MonoBehaviour {
@@ -19,11 +20,20 @@ public class MenuController : MonoBehaviour {
 	public UILabel errorLabel;
 	
 	private WebApi webApi;
+	private List<UILabel> leaderboardLabels = new List<UILabel>();
 	
 
 	// Use this for initialization
 	void Start () {
 		webApi = new WebApi();
+		GameObject leader = GameObject.FindWithTag("Leaderboard");
+		UILabel[] labels = leader.GetComponentsInChildren<UILabel>(true);
+		
+		foreach (UILabel label in labels){
+			leaderboardLabels.Add(label);	
+		}
+		
+		
 		if (PlayerPrefs.HasKey("username")){
 			mainMenu.SetActiveRecursively(true);
 			leaderBoard.SetActiveRecursively(false);
@@ -69,7 +79,7 @@ public class MenuController : MonoBehaviour {
 		StartCoroutine("CreateAccount");
 	}
 	
-	IEnumerator CreateAccount(){
+	private IEnumerator CreateAccount(){
 		if (passwordLabel.text != confPasswordLabel.text){
 			errorLabel.color = Color.red;
 			errorLabel.text = "Passwords do not match.";
@@ -104,6 +114,26 @@ public class MenuController : MonoBehaviour {
 			}
 		}
 			
+	}
+
+	
+	
+	private void SetLeaderboardLabel (int rank, string name, int taps){
+		
+		List<UILabel> labels = leaderboardLabels.FindAll(i=>i.transform.parent.name == rank.ToString());
+		foreach (UILabel label in labels)
+		{
+			switch (label.gameObject.name)
+			{
+				case "Name":
+					label.text = rank + ". " + name;
+					break;
+				case "Taps":
+					label.text = taps.ToString();
+					break;
+			}
+		}
+		
 	}
 	
 }
