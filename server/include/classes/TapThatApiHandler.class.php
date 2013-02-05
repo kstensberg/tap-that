@@ -75,7 +75,7 @@ class TapThatApiHandler extends ApiHander
 			}
 		}
 		
-		$response = new TapThatLeaderboardJson();
+		$response = new TapThatTapsJson();
 		
 		$sql = "SELECT
 					totalTaps,
