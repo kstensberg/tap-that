@@ -42,7 +42,7 @@ class TapThatApiHandler extends ApiHander
 			
 			$leaderboard->rank = intval($row['rank']);
 			$leaderboard->totalTaps = intval($row['totalTaps']);
-			$leaderResult->name = $row['name'];
+			$leaderboard->name = $row['name'];
 			$leaderboard->delta = $this->GetLastDeltaFromUser($row['userId']);
 			
 			array_push($response, $leaderboard);
