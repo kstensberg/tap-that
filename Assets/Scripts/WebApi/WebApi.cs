@@ -27,7 +27,7 @@ namespace EightBitIdeas.WebApi
 				return new ErrorResponse(JsonMapper.ToObject(www.text));
 		}
 		
-		public LoginResponse GetResponse(WWW www)
+		public LoginResponse GetLoginResponse(WWW www)
 		{
 			if (IsError(www))
 				return null;

@@ -59,6 +59,8 @@ public class MenuController : MonoBehaviour {
 		leaderBoard.SetActiveRecursively(true);
 		mainMenu.SetActiveRecursively(false);
 		signupMenu.SetActiveRecursively(false);
+		
+		StartCoroutine("GetLeaderboardTop10");
 	}
 	
 	void ShowMainMenu (){
@@ -115,8 +117,6 @@ public class MenuController : MonoBehaviour {
 		}
 			
 	}
-
-	
 	
 	private void SetLeaderboardLabel (int rank, string name, int taps){
 		
@@ -136,4 +136,22 @@ public class MenuController : MonoBehaviour {
 		
 	}
 	
+	private IEnumerator GetLeaderboardTop10(){
+		string url = WebApi.ApiRootUrl + "tapthat/leaderboard";
+		
+		WWWForm form = new WWWForm();
+		form.AddField("top", 10);
+		
+		WWW www = new WWW(url, form);
+		
+		yield return www;
+		
+		JsonData json = JsonMapper.ToObject(www.text);
+		
+		for (int c = 0; c < json.Count; c++)
+		{
+			LeaderboardResponse leaderboardResponse = new LeaderboardResponse(json[c]);
+			SetLeaderboardLabel(leaderboardResponse.rank, leaderboardResponse.name, leaderboardResponse.totalTaps);
+		}
+	}
 }
