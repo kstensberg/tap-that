@@ -146,12 +146,20 @@ public class MenuController : MonoBehaviour {
 		
 		yield return www;
 		
-		JsonData json = JsonMapper.ToObject(www.text);
+		ErrorResponse error = webApi.GetError(www);
 		
-		for (int c = 0; c < json.Count; c++)
-		{
-			LeaderboardResponse leaderboardResponse = new LeaderboardResponse(json[c]);
-			SetLeaderboardLabel(leaderboardResponse.rank, leaderboardResponse.name, leaderboardResponse.totalTaps);
+		if (error != null) {
+			//TODO: show user error here
+			Debug.Log(error.displayError);
+		} else {
+			Debug.Log(www.text);
+			
+			JsonData json = JsonMapper.ToObject(www.text);
+			
+			for (int c = 0; c < json.Count; c++) {
+				LeaderboardResponse leaderboardResponse = new LeaderboardResponse(json[c]);
+				SetLeaderboardLabel(leaderboardResponse.rank, leaderboardResponse.name, leaderboardResponse.totalTaps);
+			}
 		}
 	}
 }
