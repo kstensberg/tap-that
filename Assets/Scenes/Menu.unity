@@ -386,7 +386,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 40000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -821,7 +821,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 6. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1068,7 +1068,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 60000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 50000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 9. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 2. Kevin S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 5000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1566,7 +1566,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 10000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1620,7 +1620,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 90000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1837,7 +1837,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 1. Jacob W.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 3. Mikhael B.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2072,7 +2072,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 8. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 4. Chuck J.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2359,7 +2359,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 20000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2500,7 +2500,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 80000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2608,7 +2608,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 5. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2672,7 +2672,7 @@ Transform:
   m_GameObject: {fileID: 1908772761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00416666688, y: .00416666688, z: .00416666688}
+  m_LocalScale: {x: .00414078683, y: .00414078683, z: .00414078683}
   m_Children:
   - {fileID: 2041127988}
   m_Father: {fileID: 0}
@@ -2687,7 +2687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5ecb5660b11414fb042fb826e03b73, type: 1}
   m_Name: 
   automatic: 1
-  manualHeight: 480
+  manualHeight: 483
 --- !u!114 &1908772764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,8 +2730,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1939404513}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 640, y: 480, z: .00734803686}
+  m_LocalPosition: {x: -320.000031, y: 640, z: 0}
+  m_LocalScale: {x: 900, y: 483, z: .00734803686}
   m_Children:
   - {fileID: 687139224}
   m_Father: {fileID: 2041127988}
@@ -2924,7 +2924,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 10. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -2978,7 +2978,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 70000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -3169,7 +3169,7 @@ MonoBehaviour:
   mPivot: 3
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 7. John S.
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -3223,7 +3223,7 @@ MonoBehaviour:
   mPivot: 5
   mDepth: 3
   mFont: {fileID: 11400000, guid: e08c3be9ff9ed426bb7a889cd35106e8, type: 2}
-  mText: 30000
+  mText: 
   mMaxLineWidth: 0
   mEncoding: 1
   mMaxLineCount: 0

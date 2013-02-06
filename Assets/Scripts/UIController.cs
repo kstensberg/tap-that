@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour {
 	
 	// Use this for initialization
 	IEnumerator Start () {
+		Screen.orientation = ScreenOrientation.LandscapeRight;
 		webApi = new WebApi();
 		
 		WWW www = webApi.GetAuthWWW(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
