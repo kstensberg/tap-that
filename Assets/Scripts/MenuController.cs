@@ -25,8 +25,6 @@ public class MenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Screen.orientation = ScreenOrientation.Portrait;
-		
 		webApi = new WebApi();
 		GameObject leader = GameObject.FindWithTag("Leaderboard");
 		UILabel[] labels = leader.GetComponentsInChildren<UILabel>(true);
