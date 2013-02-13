@@ -1,0 +1,10 @@
+C:\src\tap-that\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\src\tap-that\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\src\tap-that\Temp\bin\Debug\Lib8bit.dll
+C:\src\tap-that\Temp\bin\Debug\LitJson.dll
+C:\src\tap-that\Temp\bin\Debug\UnityEditor.dll
+C:\src\tap-that\Temp\bin\Debug\UnityEngine.dll
+C:\src\tap-that\Temp\bin\Debug\nunit.framework.dll
+C:\src\tap-that\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
+C:\src\tap-that\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\src\tap-that\obj\Debug\Assembly-CSharp-firstpass.pdb
