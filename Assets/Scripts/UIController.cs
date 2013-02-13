@@ -4,6 +4,9 @@ using EightBitIdeas.WebApi;
 using EightBitIdeas.WebApi.Json;
 using System;
 using LitJson;
+using System.Collections.Generic;
+using EightBitIdeas.Lib8bit.Net.Http.WebApi;
+using EightBitIdeas.Lib8bit.Net.Http.WebApi.ApiResponse;
 
 public class UIController : MonoBehaviour {
 	
@@ -22,41 +25,30 @@ public class UIController : MonoBehaviour {
 	private LoginResponse loginResponse;
 	
 	// Use this for initialization
-	IEnumerator Start () {
+	void Start () {
 		webApi = new WebApi();
 		
-		WWW www = webApi.GetAuthWWW(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
-		yield return www;
+		IWebApiResponse loginApiResponse = webApi.Login(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
 		
-		ErrorResponse error = webApi.GetError(www);
-		
-		if (error != null)
-			PushMessage(error.displayError, 5);
+		if (loginApiResponse is ErrorResponse)
+			PushMessage((loginApiResponse as ErrorResponse).displayError, 5);
 		else
-			loginResponse = webApi.GetLoginResponse(www);
+			loginResponse = loginApiResponse as LoginResponse;
 		
 		if (loginResponse != null)
 		{
-			
-			
-			string url = WebApi.ApiRootUrl + "TapThat/taps";
-		
-			WWWForm form = new WWWForm();
-			form.AddField("authToken", loginResponse.authToken);
-			
-			WWW leaderWww = new WWW(url, form);
-			
-			yield return leaderWww;
-			
-			error = webApi.GetError(leaderWww);
-			
-			if (error != null)
+			IWebApiResponse tapsResponse = webApi.GetResponseObject<TapsResponse>("tapthat/taps", "POST", null, new Dictionary<string, string>()
 			{
-				PushMessage(error.displayError, 5);
+				{"authToken", loginResponse.authToken}
+			});
+			
+			if (tapsResponse is ErrorResponse)
+			{
+				PushMessage((tapsResponse as ErrorResponse).displayError, 5);
 			}
 			else
 			{
-				TapsResponse leaderboardResponse = new TapsResponse(JsonMapper.ToObject(leaderWww.text));
+				TapsResponse leaderboardResponse = tapsResponse as TapsResponse;
 				int totalTaps = leaderboardResponse.totalTaps;
 				
 				string msg = string.Format("Welcome back {0}, {1} bubble taps from before added", loginResponse.name, totalTaps);
@@ -96,73 +88,71 @@ public class UIController : MonoBehaviour {
 		iTween.MoveTo(messageBox, iTween.Hash("position", new Vector3(p.x, -280, p.z), "time", 1, "isLocal", true));
 	}
 	
-	private IEnumerator UpdateTaps() {
-		string url = WebApi.ApiRootUrl + "TapThat/taps";
+	private void UpdateTaps() {
 		
-		WWWForm form = new WWWForm();
-		form.AddField("authToken", loginResponse.authToken);
-		Debug.Log("sending delta " + tapDelta);
-		form.AddField("delta", tapDelta);
-		tapDelta = 0;
-		
-		WWW www = new WWW(url, form);
-		
-		yield return www;
-		
-		ErrorResponse error = webApi.GetError(www);
-		
-		if (error != null)
+		if (loginResponse != null)
 		{
-			PushMessage(error.displayError, 5);
-		}
-		else
-		{
-			Debug.Log(www.text);
+			Debug.Log("sending delta " + tapDelta);
 			
-			TapsResponse leaderboardResponse = new TapsResponse(JsonMapper.ToObject(www.text));
-			
-			LeaderboardResponse nextRank = null;
-			LeaderboardResponse previousRank = null;
-			foreach (LeaderboardResponse nearRank in leaderboardResponse.leaderboard)
+			Dictionary<string, string> args = new Dictionary<string, string>()
 			{
-				if (nextRank != null && previousRank != null)
-					break;
+				{"authToken", loginResponse.authToken},
+				{"delta", tapDelta.ToString()}
+			};
+			tapDelta = 0;
+			
+			IWebApiResponse tapsResponse = webApi.GetResponseObject<TapsResponse>("tapthat/taps", "POST", null, args);
+			
+			
+			if (tapsResponse is ErrorResponse)
+			{
+				PushMessage((tapsResponse as ErrorResponse).displayError, 5);
+			}
+			else
+			{
+				TapsResponse leaderboardResponse = tapsResponse as TapsResponse;
 				
-				if (nearRank.rank == leaderboardResponse.rank-1)
+				LeaderboardResponse nextRank = null;
+				LeaderboardResponse previousRank = null;
+				foreach (LeaderboardResponse nearRank in leaderboardResponse.leaderboard)
 				{
-					nextRank = nearRank;
-					continue;
+					if (nextRank != null && previousRank != null)
+						break;
+					
+					if (nearRank.rank == leaderboardResponse.rank-1)
+					{
+						nextRank = nearRank;
+						continue;
+					}
+					else if (nearRank.rank == leaderboardResponse.rank+1)
+					{
+						previousRank = nearRank;
+						continue;
+					}
 				}
-				else if (nearRank.rank == leaderboardResponse.rank+1)
+				
+				if (nextRank == null)
 				{
-					previousRank = nearRank;
-					continue;
+					nextRankLabel.enabled = false;
+				}
+				else
+				{
+					nextRankLabel.enabled = true;
+					nextRankLabel.text = nextRank.name + ": " + nextRank.totalTaps;
+				}
+				
+				if (previousRank == null)
+				{
+					previousRankLabel.enabled = false;
+				}
+				else
+				{
+					previousRankLabel.enabled = true;
+					previousRankLabel.text = previousRank.name + ": " + previousRank.totalTaps;
 				}
 			}
-			
-			if (nextRank == null)
-			{
-				nextRankLabel.enabled = false;
-			}
-			else
-			{
-				nextRankLabel.enabled = true;
-				nextRankLabel.text = nextRank.name + ": " + nextRank.totalTaps;
-			}
-			
-			if (previousRank == null)
-			{
-				previousRankLabel.enabled = false;
-			}
-			else
-			{
-				previousRankLabel.enabled = true;
-				previousRankLabel.text = previousRank.name + ": " + previousRank.totalTaps;
-			}
-			
 		}
 		
-		yield return new WaitForSeconds(leaderboardDelay);
 		StartCoroutine("UpdateTaps");
 	}
 }

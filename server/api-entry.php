@@ -23,7 +23,7 @@ $tapThatApi->Init($mediator);
 $response = $mediator->GetResponse($_GET['route']);
 
 if ($response instanceof ErrorJson) {
-	header('Error-State: true');
+	http_response_code(500);
 }
 
 print json_encode($response);

@@ -5,6 +5,8 @@ using EightBitIdeas.WebApi.Json;
 using System;
 using LitJson;
 using System.Collections.Generic;
+using EightBitIdeas.Lib8bit.Net.Http.WebApi;
+using EightBitIdeas.Lib8bit.Net.Http.WebApi.ApiResponse;
 
 
 public class MenuController : MonoBehaviour {
@@ -81,33 +83,19 @@ public class MenuController : MonoBehaviour {
 		StartCoroutine("CreateAccount");
 	}
 	
-	private IEnumerator CreateAccount(){
+	private void CreateAccount(){
 		if (passwordLabel.text != confPasswordLabel.text){
 			errorLabel.color = Color.red;
 			errorLabel.text = "Passwords do not match.";
 			passwordLabel.text = "";
 			confPasswordLabel.text = "";
 		}
-		else {		
-			string url = WebApi.ApiRootUrl + "user/create";
+		else {
+			IWebApiResponse response = webApi.CreateUser(usernameLabel.text, passwordLabel.text, nameLabel.text);
 			
-			WWWForm form = new WWWForm();
-			form.AddField("name", nameLabel.text);
-			form.AddField("username", usernameLabel.text);
-			form.AddField("password", passwordLabel.text);
-			
-			WWW createWww = new WWW(url, form);
-			
-			yield return createWww;
-			
-			Debug.Log(createWww.text);
-			
-			ErrorResponse error = webApi.GetError(createWww);
-			
-			if (error != null)
-			{
+			if (response is ErrorResponse) {
 				errorLabel.color = Color.red;
-				errorLabel.text = error.displayError;
+				errorLabel.text = (response as ErrorResponse).displayError;
 			}
 			else {
 				PlayerPrefs.SetString("username", usernameLabel.text);
@@ -136,29 +124,19 @@ public class MenuController : MonoBehaviour {
 		
 	}
 	
-	private IEnumerator GetLeaderboardTop10(){
-		string url = WebApi.ApiRootUrl + "tapthat/leaderboard";
+	private void GetLeaderboardTop10(){
 		
-		WWWForm form = new WWWForm();
-		form.AddField("top", 10);
+		IWebApiResponse response = webApi.GetResponseObject<LeaderboardListResponse>("tapthat/leaderboard", "POST", null, new Dictionary<string, string>()
+		{
+			{ "top", "10" }
+		});
 		
-		WWW www = new WWW(url, form);
-		
-		yield return www;
-		
-		ErrorResponse error = webApi.GetError(www);
-		
-		if (error != null) {
+		if (response is ErrorResponse) {
 			//TODO: show user error here
-			Debug.Log(error.displayError);
+			Debug.Log((response as ErrorResponse).displayError);
 		} else {
-			Debug.Log(www.text);
-			
-			JsonData json = JsonMapper.ToObject(www.text);
-			
-			for (int c = 0; c < json.Count; c++) {
-				LeaderboardResponse leaderboardResponse = new LeaderboardResponse(json[c]);
-				SetLeaderboardLabel(leaderboardResponse.rank, leaderboardResponse.name, leaderboardResponse.totalTaps);
+			foreach (var responseRow in response as LeaderboardListResponse) {
+				SetLeaderboardLabel(responseRow.rank, responseRow.name, responseRow.totalTaps);
 			}
 		}
 	}
