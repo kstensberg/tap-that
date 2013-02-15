@@ -10,8 +10,8 @@ class UserApiHandler extends ApiHander
 {
 	public function Init(ApiMediator $mediator)
 	{
-		$mediator->AttachRoute('user/auth', $this, 'GetAuthResponse');
-		$mediator->AttachRoute('user/create', $this, 'GetCreateResponse');
+		$mediator->AttachRoute('user/auth', $this, 'GetAuthResponse', false);
+		$mediator->AttachRoute('user/create', $this, 'GetCreateResponse', false);
 	}
 	
 	public function GetAuthResponse()

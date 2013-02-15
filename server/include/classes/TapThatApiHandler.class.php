@@ -8,13 +8,18 @@ class TapThatApiHandler extends ApiHander
 {
 	public function Init(ApiMediator $mediator)
 	{
-		$mediator->AttachRoute('tapthat/taps', $this, 'GetTapsResponse');
-		$mediator->AttachRoute('tapthat/leaderboard', $this, 'GetLeaderboardResponse');
+		$mediator->AttachRoute('tapthat/taps', $this, 'GetTapsResponse', true);
+		$mediator->AttachRoute('tapthat/leaderboard', $this, 'GetLeaderboardResponse', false);
 	}
 	
 	public function GetLeaderboardResponse()
 	{
 		$response = array();
+		$top = 10;
+		
+		if (array_key_exists('top', $_POST)) {
+			$top = intval($_POST['top']);
+		}
 		
 		$sql = "SELECT
 				totalTaps,
@@ -33,38 +38,42 @@ class TapThatApiHandler extends ApiHander
 			JOIN (SELECT @curRow := 0) r
 			JOIN users AS users ON userId = users.id
 			ORDER BY rank
-			LIMIT 10";
+			LIMIT ?";
 		
-		$result = $this->mysql->query($sql);
-		while($row = $result->fetch_assoc()) {
-			
+		$stmt = $this->mysql->prepare($sql);
+		
+		if ($stmt === false) {
+			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+		}
+		
+		$stmt->bind_param('i', $top);
+
+		$stmt->execute();
+		$stmt->bind_result($totalTaps, $rank, $userId, $name);
+		$stmt->store_result();
+		
+		while($stmt->fetch()) {
 			$leaderboard = new TapThatLeaderboardJson();
 			
-			$leaderboard->rank = intval($row['rank']);
-			$leaderboard->totalTaps = intval($row['totalTaps']);
-			$leaderboard->name = $row['name'];
-			$leaderboard->delta = $this->GetLastDeltaFromUser($row['userId']);
+			$leaderboard->rank = intval($rank);
+			$leaderboard->totalTaps = intval($totalTaps);
+			$leaderboard->name = $name;
+			$leaderboard->delta = $this->GetLastDeltaFromUser(intval($userId));
+			
+			if ($leaderboard->delta instanceof ErrorJson) {
+				return $leaderboard->delta;
+			}
 			
 			array_push($response, $leaderboard);
 		}
+		
+		$stmt->reset();
 		
 		return $response;
 	}
 	
 	public function GetTapsResponse()
-	{
-		if (array_key_exists('authToken', $_POST)) {
-			session_id($_POST['authToken']);
-		}
-		
-		session_start();
-		
-		if (count($_SESSION) <= 0) {
-			return new ErrorJson('access denied', 'no session exists');
-		} else if (!array_key_exists('userId', $_SESSION)) {
-			return new ErrorJson('access denied', 'user id not found in session');
-		}
-		
+	{	
 		$userId = $_SESSION['userId'];
 		
 		if (array_key_exists('delta', $_POST)) {
@@ -73,6 +82,12 @@ class TapThatApiHandler extends ApiHander
 			if ($newDeltaResponse instanceof JsonError) {
 				return $newDeltaResponse;
 			}
+		}
+		
+		$near = 1;
+		
+		if (array_key_exists('near', $_POST)) {
+			$near = intval($_POST['near']);
 		}
 		
 		$response = new TapThatTapsJson();
@@ -111,32 +126,57 @@ class TapThatApiHandler extends ApiHander
 		$stmt->fetch();
 		$stmt->reset();
 		
+		$rankRangeLowest = $currentUserRank - $near;
+		$rankRangeHighest = $currentUserRank + $near;
+		
 		$response->rank = intval($currentUserRank);
 		$response->totalTaps = intval($currentUserTotalTaps);
 		$response->leaderboard = array();
 		
-		$sql = "SELECT
-				totalTaps,
-				@curRow := @curRow + 1 AS rank,
-				userId
-			FROM (
-				SELECT  
-					userId,
-					SUM(delta) AS totalTaps
-				FROM `tapthat-deltas` AS deltas
-				
-				GROUP BY userId
-				ORDER BY totalTaps DESC
-			) AS innerQuery
-			JOIN (SELECT @curRow := 0) r";
-			
-		$result = $this->mysql->query($sql);
-		while($row = $result->fetch_assoc()) {
+		$sql = "SELECT 
+					i.totalTaps,
+					i.rank,
+					i.userId,
+					u.name
+				FROM (
+					SELECT
+						totalTaps,
+						@curRow := @curRow + 1 AS rank,
+						userId
+					FROM (
+						SELECT  
+							userId,
+							SUM(delta) AS totalTaps
+						FROM `tapthat-deltas` AS deltas
+						
+						GROUP BY userId
+						ORDER BY totalTaps DESC
+					) AS innerQuery
+					JOIN (SELECT @curRow := 0) r
+				) AS i
+				JOIN users AS u ON u.id = i.userId
+				WHERE rank >= ? AND rank <= ? AND rank != ?";
+		
+		$stmt = $this->mysql->prepare($sql);
+		
+		if ($stmt === false) {
+			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+		}
+		
+		var_dump($currentUserRank);
+		
+		$stmt->bind_param('iii', $rankRangeLowest, $rankRangeHighest, $currentUserRank);
+
+		$stmt->execute();
+		$stmt->bind_result($totalTaps, $rank, $userId, $name);
+		$stmt->store_result();
+		
+		while($stmt->fetch()) {
 			$leaderboard = new TapThatLeaderboardJson();
-			$leaderboard->rank = intval($row['rank']);
-			$leaderboard->totalTaps = intval($row['totalTaps']);
-			$leaderboard->delta = $this->GetLastDeltaFromUser($row['userId']);
-			$leaderboard->name = $this->GetNameForUser($row['userId']);
+			$leaderboard->rank = intval($rank);
+			$leaderboard->totalTaps = intval($totalTaps);
+			$leaderboard->delta = $this->GetLastDeltaFromUser($userId);
+			$leaderboard->name = $name;
 			
 			if ($leaderboard->delta instanceof JsonError) {
 				return $leaderboard->delta;
@@ -151,6 +191,8 @@ class TapThatApiHandler extends ApiHander
 			array_push($response->leaderboard, $leaderboard);
 		}
 		
+		$stmt->reset();
+		
 		return $response;
 	}
 	
@@ -159,11 +201,11 @@ class TapThatApiHandler extends ApiHander
 		//TODO: why is this here?  shouldn't we just join?
 		
 		$sql = "SELECT delta FROM `tapthat-deltas` where userId = ? ORDER BY timestamp DESC LIMIT 1";
-			
+		
 		$stmt = $this->mysql->prepare($sql);
 		
 		if ($stmt === false) {
-			return new ErrorJson('internal error, please try again later', 'error preparing sql');
+			return new ErrorJson('internal error, please try again later', 'error preparing sql: ' . $stmt->error);
 		}
 		
 		$stmt->bind_param('i', $userId);
@@ -174,27 +216,6 @@ class TapThatApiHandler extends ApiHander
 		$stmt->reset();
 		
 		return $delta;
-	}
-	
-	private function GetNameForUser($userId)
-	{
-		//TODO: why is this here?  shouldn't we just join?
-		$sql = "SELECT name FROM users where id = ? LIMIT 1";
-			
-		$stmt = $this->mysql->prepare($sql);
-		
-		if ($stmt === false) {
-			return new ErrorJson('internal error, please try again later', 'error preparing sql');
-		}
-		
-		$stmt->bind_param('i', $userId);
-
-		$stmt->execute();
-		$stmt->bind_result($nameForUser);
-		$stmt->fetch();
-		$stmt->reset();
-		
-		return $nameForUser;
 	}
 	
 	private function AddNewDelta($userId, $delta)
