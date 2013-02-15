@@ -1,0 +1,11 @@
+<?php
+
+class EightBitMysql extends mysqli
+{
+        function EightBitMysql()
+        {
+                parent::__construct('hostname', 'username', 'password', 'database');
+        }
+}
+
+?>
