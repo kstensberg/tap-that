@@ -26,7 +26,7 @@ public class CircleController : MonoBehaviour {
 	
 	void SpawnCircle () 
 	{
-		float randScale = Random.Range(0.3f, 1.0f);
+		float randScale = Random.Range(0.4f, 1.0f);
 		Vector3 position = new Vector3(Random.Range(-25.0f + (randScale * 8.0f), 25.0f - (randScale * 8.0f)),Random.Range(-19.0f + (randScale * 8.0f), 19.0f - (randScale * 8.0f)), 0.0f);
 		
 		GameObject circle = (GameObject)Instantiate(circlePrefab, position, Quaternion.Euler(new Vector3(-90f,0f,0f)));

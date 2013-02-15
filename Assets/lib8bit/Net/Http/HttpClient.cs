@@ -10,8 +10,8 @@ namespace EightBitIdeas.Lib8bit.Net.Http
 {
     public class HttpClient
     {
-        private string HttpVersion;
-        private int StatusCode; 
+        private string ResponseHttpVersion;
+        private int ResponseStatusCode; 
         private string StatusMessage;
         
         private Dictionary<string, string> ResponseHeaders;
@@ -111,8 +111,8 @@ namespace EightBitIdeas.Lib8bit.Net.Http
             string responseStatusLine = headerSplit[0];
             string[] statusLineSplit = responseStatusLine.Split(new char[] { ' ' }, 3);
 
-            HttpVersion = statusLineSplit[0];
-            StatusCode = Convert.ToInt32(statusLineSplit[1]);
+            ResponseHttpVersion = statusLineSplit[0];
+            ResponseStatusCode = Convert.ToInt32(statusLineSplit[1]);
             StatusMessage = statusLineSplit[2];
 
             for (int c = 1; c < headerSplit.Length; c++)
@@ -124,42 +124,18 @@ namespace EightBitIdeas.Lib8bit.Net.Http
             ResponseBody = responseSplit[1];
         }
 
-        public Dictionary<string, string> GetHeaders()
-        {
-            return ResponseHeaders;
-        }
-
-        public string GetHeader(string key)
-        {
-            if (ResponseHeaders.ContainsKey(key))
-                return ResponseHeaders[key];
-            else
-                return null;
-        }
-
-        public string GetBody()
-        {
-            return ResponseBody;
-        }
-
-        public int GetStatusCode()
-        {
-            return StatusCode;
-        }
-
-        public string GetResponseHttpVersion()
-        {
-            return HttpVersion;
-        }
-
         public JsonData GetJsonData()
         {
-            return LitJson.JsonMapper.ToObject(GetBody());
+			if (string.IsNullOrEmpty(ResponseBody)) {
+				return null;
+			} else {
+            	return LitJson.JsonMapper.ToObject(ResponseBody);
+			}
         }
 
         public bool IsError()
         {
-            if (StatusCode == 200)
+            if (ResponseStatusCode == 200)
                 return false;
             else
                 return true;

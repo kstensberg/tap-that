@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour {
 	void Start () {
 		webApi = new WebApi();
 		
-		IWebApiResponse loginApiResponse = webApi.Login(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
+		IWebApiResponse loginApiResponse = webApi.Login(PlayerPrefs.GetString("email"), PlayerPrefs.GetString("password"));
 		
 		if (loginApiResponse is ErrorResponse)
 			PushMessage((loginApiResponse as ErrorResponse).displayError, 5);
@@ -88,7 +88,7 @@ public class UIController : MonoBehaviour {
 		iTween.MoveTo(messageBox, iTween.Hash("position", new Vector3(p.x, -280, p.z), "time", 1, "isLocal", true));
 	}
 	
-	private void UpdateTaps() {
+	private IEnumerable UpdateTaps() {
 		
 		if (loginResponse != null)
 		{
@@ -114,20 +114,23 @@ public class UIController : MonoBehaviour {
 				
 				LeaderboardResponse nextRank = null;
 				LeaderboardResponse previousRank = null;
-				foreach (LeaderboardResponse nearRank in leaderboardResponse.leaderboard)
+				if (leaderboardResponse.rank != 0) 
 				{
-					if (nextRank != null && previousRank != null)
-						break;
-					
-					if (nearRank.rank == leaderboardResponse.rank-1)
+					foreach (LeaderboardResponse nearRank in leaderboardResponse.leaderboard)
 					{
-						nextRank = nearRank;
-						continue;
-					}
-					else if (nearRank.rank == leaderboardResponse.rank+1)
-					{
-						previousRank = nearRank;
-						continue;
+						if (nextRank != null && previousRank != null)
+							break;
+						
+						if (nearRank.rank == leaderboardResponse.rank-1)
+						{
+							nextRank = nearRank;
+							continue;
+						}
+						else if (nearRank.rank == leaderboardResponse.rank+1)
+						{
+							previousRank = nearRank;
+							continue;
+						}
 					}
 				}
 				
@@ -153,6 +156,7 @@ public class UIController : MonoBehaviour {
 			}
 		}
 		
+		yield return new WaitForSeconds(leaderboardDelay);
 		StartCoroutine("UpdateTaps");
 	}
 }
