@@ -1,22 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuController.cs">
-    <Files>
-      <File FileName="Assets\Scripts\MenuController.cs" Line="85" Column="2" />
-      <File FileName="c:\src\tap-that\lib8bit\Net\Http\HttpClient.cs" Line="1" Column="1" />
-      <File FileName="c:\src\tap-that\lib8bit\Net\Http\WebApi\WebApi.cs" Line="1" Column="1" />
-      <File FileName="c:\src\tap-that\lib8bit\Net\Http\WebApi\ApiResponse\ErrorResponse.cs" Line="1" Column="1" />
-      <File FileName="c:\src\tap-that\Assets\lib8bit\Net\Http\HttpClient.cs" Line="29" Column="1" />
-      <File FileName="c:\src\tap-that\Assets\lib8bit\Net\Http\WebApi\WebApi.cs" Line="56" Column="1" />
-      <File FileName="Assets\Plugins\NGUI\Scripts\UI\UILabel.cs" Line="113" Column="19" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="c:\src\tap-that\Assets\lib8bit\Net\Http\WebApi\WebApi.cs" line="51" />
-      <Breakpoint file="c:\src\tap-that\Assets\lib8bit\Net\Http\HttpClient.cs" line="118" />
-      <Catchpoint exceptionName="System.FormatException" />
-      <Breakpoint file="c:\src\tap-that\Assets\lib8bit\Net\Http\HttpClient.cs" line="82" />
+      <Breakpoint file="C:\src\8bit\tap-that\Assets\Scripts\UIController.cs" line="29" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

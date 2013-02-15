@@ -94,7 +94,7 @@ class UserApiHandler extends ApiHander
 		
 		$stmt->reset();
 		
-		return GetAuthResponse();
+		return $this->GetAuthResponse();
 		
 	}
 	
