@@ -36,7 +36,7 @@ public class MenuController : MonoBehaviour {
 		}
 		
 		
-		if (PlayerPrefs.HasKey("username")){
+		if (PlayerPrefs.HasKey("email")){
 			mainMenu.SetActiveRecursively(true);
 			leaderBoard.SetActiveRecursively(false);
 			signupMenu.SetActiveRecursively(false);	
@@ -98,7 +98,7 @@ public class MenuController : MonoBehaviour {
 				errorLabel.text = (response as ErrorResponse).displayError;
 			}
 			else {
-				PlayerPrefs.SetString("username", usernameLabel.text);
+				PlayerPrefs.SetString("email", usernameLabel.text);
 				PlayerPrefs.SetString("password", passwordLabel.text);
 				ShowMainMenu();
 			}

@@ -16,27 +16,27 @@ class UserApiHandler extends ApiHander
 	
 	public function GetAuthResponse()
 	{
-		if (!array_key_exists('username', $_POST) || !array_key_exists('password', $_POST)) {
-			return new ErrorJson('Username or password is incorrect', 'Username or password not given in the post');
+		if (!array_key_exists('email', $_POST) || !array_key_exists('password', $_POST)) {
+			return new ErrorJson('email or password is incorrect', 'email or password not given in the post');
 		}
 		
-		$username = $_POST["username"];
+		$email = $_POST["email"];
 		$password = $_POST["password"];
 		
-		if (strlen($password) > 72 && strlen($username) > 72) { 
-			return new ErrorJson('Username or password is incorrect', 'username or password is over the max length');
+		if (strlen($password) > 72 && strlen($email) > 72) { 
+			return new ErrorJson('email or password is incorrect', 'email or password is over the max length');
 		}
 
 		$stored_hash = "*";
 
-		$sql = "SELECT password, id, name FROM users WHERE username=? LIMIT 1;";
+		$sql = "SELECT password, id, name FROM users WHERE email=? LIMIT 1;";
 		$stmt = $this->mysql->prepare($sql);
 		
 		if ($stmt === false) {
-			return new ErrorJson('Username or password is incorrect', 'error preparing sql');
+			return new ErrorJson('email or password is incorrect', 'error preparing sql');
 		}
 		
-		$stmt->bind_param('s', $username);
+		$stmt->bind_param('s', $email);
 
 		$stmt->execute();
 		$stmt->bind_result($stored_hash, $id, $name);
@@ -60,8 +60,8 @@ class UserApiHandler extends ApiHander
 	
 	public function GetCreateResponse()
 	{
-		if (!array_key_exists('username', $_POST)) {
-			return new ErrorJson("post variable 'username' was not provided");
+		if (!array_key_exists('email', $_POST)) {
+			return new ErrorJson("post variable 'email' was not provided");
 		}
 		
 		if (!array_key_exists('password', $_POST)) {
@@ -72,11 +72,11 @@ class UserApiHandler extends ApiHander
 			return new ErrorJson("post variable 'name' was not provided");
 		}
 		
-		$username = $_POST['username'];
+		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$name = $_POST['name'];
 		
-		$sql = "INSERT INTO `users` (username, password, name) VALUES (?, ?, ?)";
+		$sql = "INSERT INTO `users` (email, password, name) VALUES (?, ?, ?)";
 			
 		$stmt = $this->mysql->prepare($sql);
 		
@@ -86,7 +86,7 @@ class UserApiHandler extends ApiHander
 		
 		$passwordHash = $this->GetHasher()->HashPassword($password);
 		
-		$stmt->bind_param('sss', $username, $passwordHash, $name);
+		$stmt->bind_param('sss', $email, $passwordHash, $name);
 
 		if ($stmt->execute() == false) {
 			return new ErrorJson('internal error, please try again later', 'error executing sql');

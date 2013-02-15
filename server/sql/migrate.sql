@@ -1,0 +1,1 @@
+ALTER TABLE `users` CHANGE `username` `email` VARCHAR( 256 ) NOT NULL 
