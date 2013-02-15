@@ -8,19 +8,19 @@ namespace EightBitIdeas.Lib8bit.Net.Http.WebApi
     {
         public static readonly string WebApiRootUrl = "http://8-bitideas.com/api/";
 
-        public IWebApiResponse Login(string username, string password)
+        public IWebApiResponse Login(string email, string password)
         {
 			Dictionary<string, string> options = new Dictionary<string, string>();
-			options.Add("username", username);
+			options.Add("email", email);
             options.Add("password", password);
 			
             return GetResponseObject<LoginResponse>("user/auth", "POST", null, options);
         }
 
-        public IWebApiResponse CreateUser(string username, string password, string name)
+        public IWebApiResponse CreateUser(string email, string password, string name)
         {
 			Dictionary<string, string> options = new Dictionary<string, string>();
-			options.Add("username", username);
+			options.Add("email", email);
             options.Add("password", password);
 			options.Add("name", name);
 			
